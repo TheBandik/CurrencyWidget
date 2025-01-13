@@ -8,48 +8,67 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var rates: [String: Double] = [:]
-    @State private var baseCurrency: String = "USD"
+    @State private var currencyPairs: [String: Double] = [:]
+    @State private var firstCurrency: String = "USD"
+    @State private var secondCurrency: String = "RUB"
     @State private var errorMessage: String?
     
     var body: some View {
         NavigationView {
-                    VStack {
-                        TextField("Enter base currency (e.g., USD)", text: $baseCurrency)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-
-                        Button("Fetch Rates") {
-                            fetchRates()
-                        }
-
-                        List(rates.sorted(by: <), id: \.key) { key, value in
-                            HStack {
-                                Text(key)
-                                Spacer()
-                                Text(String(format: "%.2f", value))
-                            }
+            VStack {
+                HStack {
+                    TextField("Валюта №1", text: $firstCurrency)
+                    TextField("Валюта №2", text: $secondCurrency)
+                }
+                .textFieldStyle(.roundedBorder)
+                .padding()
+                
+                Button("Добавить пару") {
+                    addCurrencyPair()
+                }
+                
+                List(Array(currencyPairs), id: \.key) { key, value in
+                    HStack {
+                        Text(key)
+                        Spacer()
+                        Text(String(value))
+                    }
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            removeCurrencyPair(pair: key)
+                        } label : {
+                            Label("Удалить", systemImage: "trash")
                         }
                     }
-                    .navigationTitle("Currency Rates")
-                }
-    }
-    
-    private func fetchRates() {
-        CurrencyAPI.shared.fetchRates(for: baseCurrency) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let currencyRate):
-                    self.rates = currencyRate.rates
-                    // Сохраняем курсы валют в UserDefaults
-                    let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
-                    defaults?.set(currencyRate.rates, forKey: "currencyRates")
-                case .failure(let error):
-                    self.errorMessage = error.localizedDescription
                 }
             }
+            .navigationTitle("Курс валют")
         }
     }
+    
+    private func addCurrencyPair() {
+        let currencyPair = "\(firstCurrency)/\(secondCurrency)"
+        currencyPairs[currencyPair] = 0.0
+    }
+    
+    private func removeCurrencyPair(pair: String) {
+        currencyPairs.removeValue(forKey: pair)
+    }
+    
+//    private func fetchRates() {
+//        CurrencyAPI.shared.fetchRates(for: baseCurrency) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let currencyRate):
+//                    self.rates = currencyRate.rates
+//                    let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
+//                    defaults?.set(currencyRate.rates, forKey: "currencyRates")
+//                case .failure(let error):
+//                    self.errorMessage = error.localizedDescription
+//                }
+//            }
+//        }
+//    }
 }
 
 #Preview {
