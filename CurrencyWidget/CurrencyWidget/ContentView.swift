@@ -8,19 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var currenciesViewModel = CurrenciesViewModel()
     @State private var currencyPairs: [String: Double] = [:]
-    @State private var firstCurrency: String = "USD"
-    @State private var secondCurrency: String = "RUB"
+    @State private var baseCurrency: String = "USD"
+    @State private var targetCurrency: String = "RUB"
     @State private var errorMessage: String?
     
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    TextField("Валюта №1", text: $firstCurrency)
-                    TextField("Валюта №2", text: $secondCurrency)
+                VStack {
+                    if let error = currenciesViewModel.error {
+                        Text(error)
+                    }
+                    Picker("Базовая валюта", selection: $baseCurrency) {
+                        ForEach(currenciesViewModel.currencies, id: \.self) { currency in
+                            Text(currency)
+                        }
+                    }
+                    Picker("Целевая валюта", selection: $targetCurrency) {
+                        ForEach(currenciesViewModel.currencies, id: \.self) { currency in
+                            Text(currency)
+                        }
+                    }
                 }
                 .textFieldStyle(.roundedBorder)
+                .pickerStyle(.navigationLink)
+                .labelsHidden()
                 .padding()
                 
                 Button("Добавить пару") {
@@ -47,7 +61,7 @@ struct ContentView: View {
     }
     
     private func addCurrencyPair() {
-        let currencyPair = "\(firstCurrency)/\(secondCurrency)"
+        let currencyPair = "\(baseCurrency)/\(targetCurrency)"
         currencyPairs[currencyPair] = 0.0
     }
     
@@ -55,20 +69,20 @@ struct ContentView: View {
         currencyPairs.removeValue(forKey: pair)
     }
     
-//    private func fetchRates() {
-//        CurrencyAPI.shared.fetchRates(for: baseCurrency) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let currencyRate):
-//                    self.rates = currencyRate.rates
-//                    let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
-//                    defaults?.set(currencyRate.rates, forKey: "currencyRates")
-//                case .failure(let error):
-//                    self.errorMessage = error.localizedDescription
-//                }
-//            }
-//        }
-//    }
+    //    private func fetchRates() {
+    //        CurrencyAPI.shared.fetchRates(for: baseCurrency) { result in
+    //            DispatchQueue.main.async {
+    //                switch result {
+    //                case .success(let currencyRate):
+    //                    self.rates = currencyRate.rates
+    //                    let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
+    //                    defaults?.set(currencyRate.rates, forKey: "currencyRates")
+    //                case .failure(let error):
+    //                    self.errorMessage = error.localizedDescription
+    //                }
+    //            }
+    //        }
+    //    }
 }
 
 #Preview {
