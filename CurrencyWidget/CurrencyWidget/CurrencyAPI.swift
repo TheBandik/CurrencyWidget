@@ -8,19 +8,28 @@
 import Foundation
 
 struct CurrenciesListResponse: Decodable {
-    let success: Bool
-    let currencies: [String: String]
+    let data: [String: Currency]
+}
+
+struct Currency: Decodable {
+    let symbol: String
+    let name: String
+    let symbol_native: String
+    let decimal_digits: Int
+    let rounding: Int
+    let code: String
+    let name_plural: String
+    let type: String
 }
 
 class CurrencyAPI {
     static let shared = CurrencyAPI()
-    private let baseURL = "https://api.apilayer.com/currency_data/"
+    private let baseURL = "https://api.freecurrencyapi.com/v1/"
     private let session = URLSession.shared
     
     func getCurrenciesList(completion: @escaping (Result<[String], Error>) -> Void) {
-        var request = URLRequest(url: URL(string: "\(baseURL)list")!)
+        var request = URLRequest(url: URL(string: "\(baseURL)currencies")!)
         request.httpMethod = "GET"
-        
         if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
            let config = NSDictionary(contentsOfFile: path) as? [String: Any] {
             let apiKey = config["API_KEY"] as? String
@@ -41,11 +50,8 @@ class CurrencyAPI {
             // Декодирование JSON
             do {
                 let currencies = try JSONDecoder().decode(CurrenciesListResponse.self, from: data)
-                if currencies.success {
-                    completion(.success(Array(currencies.currencies.keys).sorted()))
-                } else {
-                    completion(.failure(NSError(domain: "Invalid response", code: 0)))
-                }
+                completion(.success(Array(currencies.data.keys).sorted()))
+                
             } catch {
                 completion(.failure(error))
             }
