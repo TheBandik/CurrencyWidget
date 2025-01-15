@@ -62,27 +62,21 @@ struct ContentView: View {
     
     private func addCurrencyPair() {
         let currencyPair = "\(baseCurrency)/\(targetCurrency)"
-        currencyPairs[currencyPair] = 0.0
+        currenciesViewModel.getCurrenciesRates(baseCurrency: baseCurrency, targetCurrency: targetCurrency) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let rate):
+                    self.currencyPairs[currencyPair] = Double(String(format: "%.2f", rate))
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     private func removeCurrencyPair(pair: String) {
         currencyPairs.removeValue(forKey: pair)
     }
-    
-    //    private func fetchRates() {
-    //        CurrencyAPI.shared.fetchRates(for: baseCurrency) { result in
-    //            DispatchQueue.main.async {
-    //                switch result {
-    //                case .success(let currencyRate):
-    //                    self.rates = currencyRate.rates
-    //                    let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
-    //                    defaults?.set(currencyRate.rates, forKey: "currencyRates")
-    //                case .failure(let error):
-    //                    self.errorMessage = error.localizedDescription
-    //                }
-    //            }
-    //        }
-    //    }
 }
 
 #Preview {

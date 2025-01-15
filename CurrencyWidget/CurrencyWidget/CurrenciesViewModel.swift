@@ -11,6 +11,7 @@ class CurrenciesViewModel: ObservableObject {
     @Published var currencies: [String] = []
     @Published var error: String? = nil
     
+    
     init() {
         CurrencyAPI.shared.getCurrenciesList { result in
             DispatchQueue.main.async {
@@ -20,6 +21,14 @@ class CurrenciesViewModel: ObservableObject {
                 case .failure(let error):
                     self.error = error.localizedDescription
                 }
+            }
+        }
+    }
+    
+    func getCurrenciesRates(baseCurrency: String, targetCurrency: String, completion: @escaping (Result<Double, Error>) -> Void) {
+        CurrencyAPI.shared.getCurrenciesRates(baseCurrency: baseCurrency, targetCurrency: targetCurrency) { result in
+            DispatchQueue.main.async {
+                completion(result)
             }
         }
     }
