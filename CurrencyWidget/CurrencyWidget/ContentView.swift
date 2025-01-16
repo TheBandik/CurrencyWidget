@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     @StateObject private var currenciesViewModel = CurrenciesViewModel()
@@ -13,6 +14,13 @@ struct ContentView: View {
     @State private var baseCurrency: String = "USD"
     @State private var targetCurrency: String = "RUB"
     @State private var errorMessage: String?
+    
+    let defaults = UserDefaults(suiteName: "group.currencyWidget")
+    let currencyPairsKey = "currencyPairs"
+    
+    init() {
+        loadCurrencyPairs()
+    }
     
     var body: some View {
         NavigationView {
@@ -67,6 +75,8 @@ struct ContentView: View {
                 switch result {
                 case .success(let rate):
                     self.currencyPairs[currencyPair] = Double(String(format: "%.2f", rate))
+                    saveCurrencyPairs()
+                    WidgetCenter.shared.reloadAllTimelines()
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -76,6 +86,20 @@ struct ContentView: View {
     
     private func removeCurrencyPair(pair: String) {
         currencyPairs.removeValue(forKey: pair)
+        saveCurrencyPairs()
+        WidgetCenter.shared.reloadTimelines(ofKind: "CurrencyWidgetExtension")
+    }
+    
+    private func saveCurrencyPairs() {
+        defaults?.set(currencyPairs, forKey: currencyPairsKey)
+        WidgetCenter.shared.reloadTimelines(ofKind: "CurrencyWidgetExtension")
+        print("Saved currency pairs: \(currencyPairs)")
+    }
+    
+    private func loadCurrencyPairs() {
+        if let savedPairs = defaults?.dictionary(forKey: currencyPairsKey) as? [String: Double] {
+            currencyPairs = savedPairs
+        }
     }
 }
 

@@ -8,80 +8,69 @@
 import WidgetKit
 import SwiftUI
 
+struct SimpleEntry: TimelineEntry {
+    let date: Date
+    let rates: [String: Double]
+}
+
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), baseCurrency: "USD", rates: ["EUR": 0.85, "GBP": 0.75])
+        SimpleEntry(date: Date(), rates: ["USD/EUR": 1.0, "USD/RUB": 103.0])
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
-        if let savedRates = defaults?.dictionary(forKey: "currencyRates") as? [String: Double] {
-            let entry = SimpleEntry(date: Date(), baseCurrency: "USD", rates: savedRates)
-            completion(entry)
-        } else {
-            // Если данных нет, возвращаем заглушку
-            let entry = SimpleEntry(date: Date(), baseCurrency: "USD", rates: ["EUR": 0.85, "GBP": 0.75])
-            completion(entry)
-        }
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
+        let defaults = UserDefaults(suiteName: "group.currencyWidget")
+        let savedRates = defaults?.dictionary(forKey: "currencyPairs") as? [String: Double] ?? [:]
+        let entry = SimpleEntry(date: Date(), rates: savedRates)
+        completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
+        print("getTimeline called")
         
-        // Получаем актуальные курсы валют из UserDefaults
-        let defaults = UserDefaults(suiteName: "com.myapp.currencyRates")
-        if let savedRates = defaults?.dictionary(forKey: "currencyRates") as? [String: Double] {
-            let entry = SimpleEntry(date: Date(), baseCurrency: "USD", rates: savedRates)
-            entries.append(entry)
-        } else {
-            let entry = SimpleEntry(date: Date(), baseCurrency: "USD", rates: ["EUR": 0.85, "GBP": 0.75])
-            entries.append(entry)
-        }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let defaults = UserDefaults(suiteName: "group.currencyWidget")
+        let savedRates = defaults?.dictionary(forKey: "currencyPairs") as? [String: Double] ?? [:]
+        let entry = SimpleEntry(date: Date(), rates: savedRates)
+        let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
 }
-
-
 
 struct CurrencyRatesWidgetEntryView: View {
     var entry: SimpleEntry
 
     var body: some View {
-        VStack {
-            Text("Base Currency: \(entry.baseCurrency)")
-                .font(.headline)
+        VStack(alignment: .leading) {
+            Text("Курс валют")
+                .padding(.bottom)
             ForEach(entry.rates.keys.sorted(), id: \.self) { key in
-                Text("\(key): \(entry.rates[key] ?? 0.0, specifier: "%.2f")")
+                HStack {
+                    Text(key)
+                    Spacer()
+                    Text("\(entry.rates[key] ?? 0.0, specifier: "%.2f")")
+                }
+                .font(.footnote)
             }
         }
-        .padding()
+        .containerBackground(.background, for: .widget)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let baseCurrency: String
-    let rates: [String: Double]
-}
-
 struct CurrencyWidgetExtension: Widget {
-    let kind: String = "CurrencyRatesWidget"
+    let kind: String = "CurrencyWidgetExtension"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             CurrencyRatesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Currency Rates")
-        .description("Displays the current currency rates")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .configurationDisplayName("Курс валют")
+        .description("Курс избранных пар валют")
     }
 }
 
 struct CurrencyRatesWidget_Previews: PreviewProvider {
     static var previews: some View {
-        CurrencyRatesWidgetEntryView(entry: SimpleEntry(date: Date(), baseCurrency: "USD", rates: ["EUR": 0.85, "GBP": 0.75]))
+        CurrencyRatesWidgetEntryView(entry: SimpleEntry(date: Date(), rates: ["USD/EUR": 1.0, "USD/RUB": 103.0]))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
