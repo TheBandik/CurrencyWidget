@@ -19,7 +19,7 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-        let defaults = UserDefaults(suiteName: "group.currencyWidget")
+        let defaults = UserDefaults(suiteName: "group.com.arkadiy.CurrencyWidget")
         let savedRates = defaults?.dictionary(forKey: "currencyPairs") as? [String: Double] ?? [:]
         let entry = SimpleEntry(date: Date(), rates: savedRates)
         completion(entry)
@@ -28,8 +28,9 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
         print("getTimeline called")
         
-        let defaults = UserDefaults(suiteName: "group.currencyWidget")
+        let defaults = UserDefaults(suiteName: "group.com.arkadiy.CurrencyWidget")
         let savedRates = defaults?.dictionary(forKey: "currencyPairs") as? [String: Double] ?? [:]
+        print(savedRates)
         let entry = SimpleEntry(date: Date(), rates: savedRates)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)

@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var targetCurrency: String = "RUB"
     @State private var errorMessage: String?
     
-    let defaults = UserDefaults(suiteName: "group.currencyWidget")
+    let defaults = UserDefaults(suiteName: "group.com.arkadiy.CurrencyWidget")
     let currencyPairsKey = "currencyPairs"
     
     init() {
@@ -93,7 +93,6 @@ struct ContentView: View {
     private func saveCurrencyPairs() {
         defaults?.set(currencyPairs, forKey: currencyPairsKey)
         WidgetCenter.shared.reloadTimelines(ofKind: "CurrencyWidgetExtension")
-        print("Saved currency pairs: \(currencyPairs)")
     }
     
     private func loadCurrencyPairs() {

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		20CC77112D33C59A005D035C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CC77102D33C59A005D035C /* WidgetKit.framework */; };
 		20CC77132D33C59A005D035C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20CC77122D33C59A005D035C /* SwiftUI.framework */; };
-		20CC77242D33C59B005D035C /* CurrencyWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 20CC770E2D33C59A005D035C /* CurrencyWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		20CC77242D33C59B005D035C /* CurrencyWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 20CC770E2D33C59A005D035C /* CurrencyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				20CC77242D33C59B005D035C /* CurrencyWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+				20CC77242D33C59B005D035C /* CurrencyWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,19 +38,18 @@
 
 /* Begin PBXFileReference section */
 		20CC76F92D33C088005D035C /* CurrencyWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		20CC770E2D33C59A005D035C /* CurrencyWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CurrencyWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		20CC770E2D33C59A005D035C /* CurrencyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CurrencyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20CC77102D33C59A005D035C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		20CC77122D33C59A005D035C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		20CC77342D392156005D035C /* CurrencyWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CurrencyWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		20CC77252D33C59B005D035C /* Exceptions for "CurrencyWidgetExtension" folder in "CurrencyWidgetExtensionExtension" target */ = {
+		20CC77252D33C59B005D035C /* Exceptions for "CurrencyWidgetExtension" folder in "CurrencyWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 20CC770D2D33C59A005D035C /* CurrencyWidgetExtensionExtension */;
+			target = 20CC770D2D33C59A005D035C /* CurrencyWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -63,7 +62,7 @@
 		20CC77142D33C59A005D035C /* CurrencyWidgetExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				20CC77252D33C59B005D035C /* Exceptions for "CurrencyWidgetExtension" folder in "CurrencyWidgetExtensionExtension" target */,
+				20CC77252D33C59B005D035C /* Exceptions for "CurrencyWidgetExtension" folder in "CurrencyWidgetExtension" target */,
 			);
 			path = CurrencyWidgetExtension;
 			sourceTree = "<group>";
@@ -93,7 +92,6 @@
 		20CC76F02D33C088005D035C = {
 			isa = PBXGroup;
 			children = (
-				20CC77342D392156005D035C /* CurrencyWidgetExtensionExtension.entitlements */,
 				20CC76FB2D33C088005D035C /* CurrencyWidget */,
 				20CC77142D33C59A005D035C /* CurrencyWidgetExtension */,
 				20CC770F2D33C59A005D035C /* Frameworks */,
@@ -105,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				20CC76F92D33C088005D035C /* CurrencyWidget.app */,
-				20CC770E2D33C59A005D035C /* CurrencyWidgetExtensionExtension.appex */,
+				20CC770E2D33C59A005D035C /* CurrencyWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,9 +144,9 @@
 			productReference = 20CC76F92D33C088005D035C /* CurrencyWidget.app */;
 			productType = "com.apple.product-type.application";
 		};
-		20CC770D2D33C59A005D035C /* CurrencyWidgetExtensionExtension */ = {
+		20CC770D2D33C59A005D035C /* CurrencyWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 20CC77262D33C59B005D035C /* Build configuration list for PBXNativeTarget "CurrencyWidgetExtensionExtension" */;
+			buildConfigurationList = 20CC77262D33C59B005D035C /* Build configuration list for PBXNativeTarget "CurrencyWidgetExtension" */;
 			buildPhases = (
 				20CC770A2D33C59A005D035C /* Sources */,
 				20CC770B2D33C59A005D035C /* Frameworks */,
@@ -161,11 +159,11 @@
 			fileSystemSynchronizedGroups = (
 				20CC77142D33C59A005D035C /* CurrencyWidgetExtension */,
 			);
-			name = CurrencyWidgetExtensionExtension;
+			name = CurrencyWidgetExtension;
 			packageProductDependencies = (
 			);
 			productName = CurrencyWidgetExtensionExtension;
-			productReference = 20CC770E2D33C59A005D035C /* CurrencyWidgetExtensionExtension.appex */;
+			productReference = 20CC770E2D33C59A005D035C /* CurrencyWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -201,7 +199,7 @@
 			projectRoot = "";
 			targets = (
 				20CC76F82D33C088005D035C /* CurrencyWidget */,
-				20CC770D2D33C59A005D035C /* CurrencyWidgetExtensionExtension */,
+				20CC770D2D33C59A005D035C /* CurrencyWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -243,7 +241,7 @@
 /* Begin PBXTargetDependency section */
 		20CC77232D33C59B005D035C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 20CC770D2D33C59A005D035C /* CurrencyWidgetExtensionExtension */;
+			target = 20CC770D2D33C59A005D035C /* CurrencyWidgetExtension */;
 			targetProxy = 20CC77222D33C59B005D035C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -505,7 +503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		20CC77262D33C59B005D035C /* Build configuration list for PBXNativeTarget "CurrencyWidgetExtensionExtension" */ = {
+		20CC77262D33C59B005D035C /* Build configuration list for PBXNativeTarget "CurrencyWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				20CC77272D33C59B005D035C /* Debug */,

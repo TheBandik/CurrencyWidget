@@ -5,6 +5,7 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.CurrencyWidget</string>
+		<string>group.com.arkadiy.CurrencyWidget</string>
 	</array>
 </dict>
 </plist>

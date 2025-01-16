@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "20CC770D2D33C59A005D035C"
-               BuildableName = "CurrencyWidgetExtensionExtension.appex"
-               BlueprintName = "CurrencyWidgetExtensionExtension"
+               BuildableName = "CurrencyWidgetExtension.appex"
+               BlueprintName = "CurrencyWidgetExtension"
                ReferencedContainer = "container:CurrencyWidget.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,18 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "20CC770D2D33C59A005D035C"
+            BuildableName = "CurrencyWidgetExtension.appex"
+            BlueprintName = "CurrencyWidgetExtension"
+            ReferencedContainer = "container:CurrencyWidget.xcodeproj">
+         </BuildableReference>
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "20CC76F82D33C088005D035C"
@@ -66,7 +76,7 @@
             BlueprintName = "CurrencyWidget"
             ReferencedContainer = "container:CurrencyWidget.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
@@ -81,6 +91,11 @@
          <EnvironmentVariable
             key = "_XCWidgetFamily"
             value = "systemMedium"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "_XCWidgetKind"
+            value = "CurrencyWidgetExtension"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
