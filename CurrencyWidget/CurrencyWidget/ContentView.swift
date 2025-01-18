@@ -70,15 +70,16 @@ struct ContentView: View {
     
     private func addCurrencyPair() {
         let currencyPair = "\(baseCurrency)/\(targetCurrency)"
+        
         currenciesViewModel.getCurrenciesRates(baseCurrency: baseCurrency, targetCurrency: targetCurrency) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let rate):
-                    self.currencyPairs[currencyPair] = Double(String(format: "%.2f", rate))
+                    self.currencyPairs[currencyPair] = round(rate * 100) / 100
                     saveCurrencyPairs()
-                    WidgetCenter.shared.reloadAllTimelines()
+                    BackgroundTaskManager.shared.scheduleAppRefresh()
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.errorMessage = "Не удалось загрузить курс: \(error.localizedDescription)"
                 }
             }
         }

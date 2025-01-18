@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct CurrencyWidgetApp: App {
+    init() {
+        BackgroundTaskManager.shared.registerBackgroundTask()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

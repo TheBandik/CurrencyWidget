@@ -44,6 +44,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		20B3C03B2D3BB195009A0F79 /* Exceptions for "CurrencyWidget" folder in "CurrencyWidget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 20CC76F82D33C088005D035C /* CurrencyWidget */;
+		};
 		20CC77252D33C59B005D035C /* Exceptions for "CurrencyWidgetExtension" folder in "CurrencyWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -56,6 +63,9 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		20CC76FB2D33C088005D035C /* CurrencyWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				20B3C03B2D3BB195009A0F79 /* Exceptions for "CurrencyWidget" folder in "CurrencyWidget" target */,
+			);
 			path = CurrencyWidget;
 			sourceTree = "<group>";
 		};
@@ -378,6 +388,7 @@
 				DEVELOPMENT_TEAM = BV83K7866C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CurrencyWidget/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -408,6 +419,7 @@
 				DEVELOPMENT_TEAM = BV83K7866C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CurrencyWidget/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
