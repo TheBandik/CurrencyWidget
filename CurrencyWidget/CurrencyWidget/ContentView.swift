@@ -18,10 +18,6 @@ struct ContentView: View {
     let defaults = UserDefaults(suiteName: "group.com.arkadiy.CurrencyWidget")
     let currencyPairsKey = "currencyPairs"
     
-    init() {
-        loadCurrencyPairs()
-    }
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -62,6 +58,9 @@ struct ContentView: View {
                             Label("Удалить", systemImage: "trash")
                         }
                     }
+                }
+                .onAppear {
+                    loadCurrencyPairs()
                 }
             }
             .navigationTitle("Курс валют")
