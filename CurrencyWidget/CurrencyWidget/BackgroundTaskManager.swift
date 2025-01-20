@@ -16,7 +16,7 @@ class BackgroundTaskManager {
     
     func registerBackgroundTask() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.arkadiy.currencyUpdate", using: nil) { task in
-            self.handleAppRefresh(task: task as! BGProcessingTask)
+            self.handleAppRefresh(task: task as! BGAppRefreshTask)
         }
     }
     
@@ -32,7 +32,7 @@ class BackgroundTaskManager {
         }
     }
     
-    private func handleAppRefresh(task: BGProcessingTask) {
+    private func handleAppRefresh(task: BGAppRefreshTask) {
         scheduleAppRefresh()
         
         guard let savedPairs = defaults?.dictionary(forKey: currencyPairsKey) as? [String: Double] else {
