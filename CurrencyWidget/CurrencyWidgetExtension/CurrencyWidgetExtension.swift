@@ -44,7 +44,7 @@ struct CurrencyRatesWidgetEntryView: View {
         VStack(alignment: .leading) {
             Text("Курс валют")
                 .padding(.bottom, 10)
-            ForEach(entry.rates.keys.sorted(), id: \.self) { key in
+            ForEach(entry.rates.keys.sorted().prefix(4), id: \.self) { key in
                 HStack {
                     Text(key)
                     Spacer()
@@ -73,7 +73,7 @@ struct CurrencyWidgetExtension: Widget {
 
 struct CurrencyRatesWidget_Previews: PreviewProvider {
     static var previews: some View {
-        CurrencyRatesWidgetEntryView(entry: SimpleEntry(date: Date(), rates: ["USD/EUR": 1.0, "USD/RUB": 103.0, "EUR/RUB": 78.0, "GBP/RUB": 91.0]))
+        CurrencyRatesWidgetEntryView(entry: SimpleEntry(date: Date(), rates: ["USD/EUR": 1.0, "USD/RUB": 103.0, "EUR/RUB": 78.0, "GBP/RUB": 91.0, "GBP/USD": 1.25]))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
